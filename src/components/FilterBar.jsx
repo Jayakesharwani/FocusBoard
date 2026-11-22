@@ -64,7 +64,7 @@ export default function FilterBar() {
             type="search"
             className="search-field__input"
             aria-label="Search tasks by title"
-            placeholder="Find a task..."
+            placeholder="Search tasks..."
             value={filters.search}
             onChange={(event) => setSearch(event.target.value)}
             autoComplete="off"

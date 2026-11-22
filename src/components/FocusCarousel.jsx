@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { FOCUS_SLIDES } from '../data/focusSlides.js';
 import { useTasks } from '../state/TaskContext.jsx';
 import { CheckIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons.jsx';
@@ -5,6 +6,7 @@ import { CheckIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons.jsx';
 export default function FocusCarousel() {
   const { activeSlide, nextSlide, prevSlide, goToSlide } = useTasks();
   const currentSlide = FOCUS_SLIDES[activeSlide] || FOCUS_SLIDES[0];
+  const touchStartXRef = useRef(null);
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowRight') {
@@ -16,13 +18,33 @@ export default function FocusCarousel() {
     }
   };
 
+  const handleTouchStart = (event) => {
+    touchStartXRef.current = event.touches?.[0]?.clientX ?? null;
+  };
+
+  const handleTouchEnd = (event) => {
+    const startX = touchStartXRef.current;
+    const endX = event.changedTouches?.[0]?.clientX ?? null;
+    touchStartXRef.current = null;
+    if (startX === null || endX === null) return;
+    const deltaX = endX - startX;
+    if (deltaX <= -40) {
+      nextSlide();
+    } else if (deltaX >= 40) {
+      prevSlide();
+    }
+  };
+
   return (
     <section
       className="focus-carousel"
       role="region"
       aria-roledescription="carousel"
       aria-label="Focus Notes"
+      tabIndex={0}
       onKeyDown={handleKeyDown}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="focus-carousel__body">
         <div aria-live="polite" aria-atomic="true">

@@ -1362,8 +1362,9 @@
 }
 
 .form-field__input--date {
+  position: relative;
   padding-left: 44px;
-  padding-right: 14px;
+  padding-right: 16px;
 }
 
 .form-field__input--date-empty:not(:focus) {
@@ -1378,14 +1379,16 @@
   color: transparent;
 }
 
+/* Keep native date picker fully clickable across the field without showing a duplicate right icon */
 .form-field__input--date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
   cursor: pointer;
-  opacity: 0.48;
-  transition: opacity var(--transition-fast);
-}
-
-.form-field__input--date::-webkit-calendar-picker-indicator:hover {
-  opacity: 0.85;
 }
 
 .task-form__required-note {
@@ -1673,13 +1676,15 @@
       #5f52eb 54%,
       var(--color-banner-end) 100%
     );
-    padding: 22px 22px 16px;
+    padding: 22px 22px 24px;
     gap: 0;
     margin-bottom: 24px;
   }
 
   .focus-carousel__desktop-only,
-  .focus-carousel__counter {
+  .focus-carousel__counter,
+  .focus-carousel__indicators,
+  .focus-carousel__visual {
     display: none;
   }
 
@@ -1693,7 +1698,7 @@
 
   .focus-carousel__meta {
     gap: 0;
-    padding-right: 78px;
+    padding-right: 0;
     font-size: 0.75rem;
     letter-spacing: 0.06em;
   }
@@ -1721,7 +1726,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    margin-top: 18px;
+    margin-top: 20px;
   }
 
   .focus-carousel__mobile-track {
@@ -1745,56 +1750,6 @@
     color: #ffffff;
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
-  }
-
-  .focus-carousel__indicators {
-    margin-top: 10px;
-    gap: 6px;
-  }
-
-  .focus-carousel__indicator {
-    padding: 4px 0;
-  }
-
-  .focus-carousel__indicator-bar {
-    width: 24px;
-    height: 3px;
-  }
-
-  .focus-carousel__visual {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-    margin-top: 0;
-    gap: 0;
-    pointer-events: auto;
-  }
-
-  .focus-carousel__controls {
-    gap: 6px;
-  }
-
-  .focus-carousel__nav-btn {
-    width: 32px;
-    height: 32px;
-  }
-
-  .focus-carousel__nav-btn--prev {
-    background-color: rgba(255, 255, 255, 0.14);
-  }
-
-  .focus-carousel__nav-btn--next {
-    background-color: rgba(255, 255, 255, 0.24);
-    color: #ffffff;
-    box-shadow: none;
-  }
-
-  .focus-carousel__nav-btn--next:hover {
-    background-color: rgba(255, 255, 255, 0.36);
-  }
-
-  .focus-preview {
-    display: none;
   }
 
   /* Overview Section — Preserve Mobile 2-Card Statistics Layout */
