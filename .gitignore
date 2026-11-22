@@ -21,3 +21,7 @@ npm-debug.log*
 .idea/
 .DS_Store
 Thumbs.db
+
+# Local assignment materials — do not publish
+FocusBoard_Frontend_Trainee_Assignment.pdf
+references/
