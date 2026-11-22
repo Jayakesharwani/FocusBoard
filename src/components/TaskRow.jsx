@@ -73,12 +73,29 @@ export default function TaskRow({
 
   const handleEditClick = () => {
     setMenuOpen(false);
-    onEdit(task);
+    onEdit(task, triggerRef.current);
   };
 
   const handleDeleteClick = () => {
     setMenuOpen(false);
-    onRequestDelete(task);
+    onRequestDelete(task, triggerRef.current);
+  };
+
+  const handleMenuKeyDown = (event) => {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+      return;
+    }
+    const items = menuContainerRef.current?.querySelectorAll('[role^="menuitem"]');
+    if (!items || items.length === 0) return;
+
+    event.preventDefault();
+    const list = Array.from(items);
+    const currentIndex = list.indexOf(document.activeElement);
+    const nextIndex =
+      event.key === 'ArrowDown'
+        ? (currentIndex + 1) % list.length
+        : (currentIndex - 1 + list.length) % list.length;
+    list[nextIndex]?.focus();
   };
 
   return (
@@ -139,6 +156,7 @@ export default function TaskRow({
             className="task-menu__dropdown"
             role="menu"
             aria-label={`Actions for ${task.title}`}
+            onKeyDown={handleMenuKeyDown}
           >
             <p className="task-menu__heading" aria-hidden="true">
               Set status

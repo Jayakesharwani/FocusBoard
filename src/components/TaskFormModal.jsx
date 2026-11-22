@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 import { TASK_PRIORITIES, TASK_STATUSES } from '../state/taskReducer.js';
 import { CalendarIcon, ChevronDownIcon, CloseIcon } from './Icons.jsx';
 
 export default function TaskFormModal({
   isOpen,
   editingTask = null,
+  returnFocusRef = null,
   onClose,
   onSubmit,
 }) {
@@ -18,8 +20,8 @@ export default function TaskFormModal({
   const [isDateFocused, setIsDateFocused] = useState(false);
   const [titleError, setTitleError] = useState('');
 
+  const dialogRef = useRef(null);
   const titleInputRef = useRef(null);
-  const dateInputRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -39,26 +41,15 @@ export default function TaskFormModal({
     }
     setIsDateFocused(false);
     setTitleError('');
-
-    const frame = requestAnimationFrame(() => {
-      titleInputRef.current?.focus();
-    });
-    return () => cancelAnimationFrame(frame);
   }, [isOpen, editingTask]);
 
-  useEffect(() => {
-    if (!isOpen) return undefined;
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        onClose();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  useModalFocus({
+    isOpen,
+    dialogRef,
+    initialFocusRef: titleInputRef,
+    returnFocusToRef: returnFocusRef,
+    onClose,
+  });
 
   if (!isOpen) {
     return null;
@@ -95,6 +86,7 @@ export default function TaskFormModal({
       }}
     >
       <div
+        ref={dialogRef}
         className="modal-card"
         role="dialog"
         aria-modal="true"
@@ -236,7 +228,6 @@ export default function TaskFormModal({
                 </span>
               )}
               <input
-                ref={dateInputRef}
                 id="task-due-date-input"
                 type="date"
                 className={`form-field__input form-field__input--date${

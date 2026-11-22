@@ -1,33 +1,23 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useModalFocus } from '../hooks/useModalFocus.js';
 import { CloseIcon } from './Icons.jsx';
 
 export default function DeleteConfirmModal({
   task,
+  returnFocusRef = null,
   onCancel,
   onConfirm,
 }) {
+  const dialogRef = useRef(null);
   const cancelBtnRef = useRef(null);
 
-  useEffect(() => {
-    if (!task) return undefined;
-
-    const frame = requestAnimationFrame(() => {
-      cancelBtnRef.current?.focus();
-    });
-
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        onCancel();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      cancelAnimationFrame(frame);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [task, onCancel]);
+  useModalFocus({
+    isOpen: Boolean(task),
+    dialogRef,
+    initialFocusRef: cancelBtnRef,
+    returnFocusToRef: returnFocusRef,
+    onClose: onCancel,
+  });
 
   if (!task) {
     return null;
@@ -44,6 +34,7 @@ export default function DeleteConfirmModal({
       }}
     >
       <div
+        ref={dialogRef}
         className="modal-card modal-card--confirm"
         role="alertdialog"
         aria-modal="true"

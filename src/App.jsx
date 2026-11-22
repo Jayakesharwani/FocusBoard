@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import DeleteConfirmModal from './components/DeleteConfirmModal.jsx';
 import FocusCarousel from './components/FocusCarousel.jsx';
 import MobileNav from './components/MobileNav.jsx';
@@ -17,34 +17,54 @@ function DashboardShell() {
   const [editingTask, setEditingTask] = useState(null);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
-  const handleOpenCreate = () => {
+  const formReturnFocusRef = useRef(null);
+  const deleteReturnFocusRef = useRef(null);
+
+  const handleOpenCreate = useCallback((event) => {
+    formReturnFocusRef.current = event?.currentTarget || document.activeElement;
     setEditingTask(null);
     setIsFormOpen(true);
-  };
+  }, []);
 
-  const handleOpenEdit = (task) => {
+  const handleOpenEdit = useCallback((task, triggerEl) => {
+    formReturnFocusRef.current = triggerEl || document.activeElement;
     setEditingTask(task);
     setIsFormOpen(true);
-  };
+  }, []);
 
-  const handleCloseForm = () => {
+  const handleCloseForm = useCallback(() => {
     setIsFormOpen(false);
     setEditingTask(null);
-  };
+  }, []);
 
-  const handleFormSubmit = (formData) => {
-    if (editingTask) {
-      updateTask(formData);
-    } else {
-      addTask(formData);
-    }
-    handleCloseForm();
-  };
+  const handleFormSubmit = useCallback(
+    (formData) => {
+      if (editingTask) {
+        updateTask(formData);
+      } else {
+        addTask(formData);
+      }
+      handleCloseForm();
+    },
+    [editingTask, updateTask, addTask, handleCloseForm]
+  );
 
-  const handleConfirmDelete = (taskId) => {
-    deleteTask(taskId);
+  const handleRequestDelete = useCallback((task, triggerEl) => {
+    deleteReturnFocusRef.current = triggerEl || document.activeElement;
+    setTaskToDelete(task);
+  }, []);
+
+  const handleCancelDelete = useCallback(() => {
     setTaskToDelete(null);
-  };
+  }, []);
+
+  const handleConfirmDelete = useCallback(
+    (taskId) => {
+      deleteTask(taskId);
+      setTaskToDelete(null);
+    },
+    [deleteTask]
+  );
 
   return (
     <div className="app-shell">
@@ -96,7 +116,7 @@ function DashboardShell() {
           <TaskList
             onOpenCreate={handleOpenCreate}
             onEditTask={handleOpenEdit}
-            onRequestDelete={setTaskToDelete}
+            onRequestDelete={handleRequestDelete}
           />
         </main>
       </div>
@@ -106,13 +126,15 @@ function DashboardShell() {
       <TaskFormModal
         isOpen={isFormOpen}
         editingTask={editingTask}
+        returnFocusRef={formReturnFocusRef}
         onClose={handleCloseForm}
         onSubmit={handleFormSubmit}
       />
 
       <DeleteConfirmModal
         task={taskToDelete}
-        onCancel={() => setTaskToDelete(null)}
+        returnFocusRef={deleteReturnFocusRef}
+        onCancel={handleCancelDelete}
         onConfirm={handleConfirmDelete}
       />
     </div>

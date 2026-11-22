@@ -58,6 +58,7 @@ export default function FilterBar() {
             id="task-search-input"
             type="search"
             className="search-field__input"
+            aria-label="Search tasks by title"
             placeholder="Find a task..."
             value={filters.search}
             onChange={(event) => setSearch(event.target.value)}
@@ -82,6 +83,7 @@ export default function FilterBar() {
           <select
             id="task-priority-filter"
             className="priority-select__control"
+            aria-label="Filter tasks by priority"
             value={filters.priority}
             onChange={(event) => setPriorityFilter(event.target.value)}
           >

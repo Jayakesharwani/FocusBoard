@@ -15,7 +15,8 @@ const SHORT_MONTHS = [
 
 /**
  * Formats an ISO calendar date string ('YYYY-MM-DD') as 'Nov 22'
- * without timezone offset drift.
+ * without timezone offset drift. Safely falls back to 'No date'
+ * for empty or malformed values.
  */
 export function formatShortDueDate(dateStr) {
   if (!dateStr || typeof dateStr !== 'string') {
@@ -23,14 +24,28 @@ export function formatShortDueDate(dateStr) {
   }
 
   const trimmed = dateStr.trim();
-  const isoMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(trimmed);
-  if (isoMatch) {
-    const monthIndex = Number(isoMatch[2]) - 1;
-    const day = Number(isoMatch[3]);
-    if (monthIndex >= 0 && monthIndex < 12 && day >= 1 && day <= 31) {
-      return `${SHORT_MONTHS[monthIndex]} ${day}`;
-    }
+  if (!trimmed) {
+    return 'No date';
   }
 
-  return trimmed;
+  const isoMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(trimmed);
+  if (!isoMatch) {
+    return 'No date';
+  }
+
+  const year = Number(isoMatch[1]);
+  const monthIndex = Number(isoMatch[2]) - 1;
+  const day = Number(isoMatch[3]);
+
+  const checkDate = new Date(Date.UTC(year, monthIndex, day));
+  const isRealCalendarDate =
+    checkDate.getUTCFullYear() === year &&
+    checkDate.getUTCMonth() === monthIndex &&
+    checkDate.getUTCDate() === day;
+
+  if (!isRealCalendarDate) {
+    return 'No date';
+  }
+
+  return `${SHORT_MONTHS[monthIndex]} ${day}`;
 }

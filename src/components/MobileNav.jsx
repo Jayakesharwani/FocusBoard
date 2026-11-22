@@ -28,7 +28,7 @@ export default function MobileNav({ onPlaceholderSelect }) {
   };
 
   return (
-    <nav className="mobile-nav" aria-label="Workspace navigation">
+    <nav className="mobile-nav" aria-label="Mobile navigation">
       <ul className="mobile-nav__list">
         {MOBILE_NAV_ITEMS.map((item) => {
           const Icon = item.icon;

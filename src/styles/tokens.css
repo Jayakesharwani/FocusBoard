@@ -26,8 +26,8 @@
 
   /* Palette — Text */
   --color-text-primary: #16213b;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #7c869a;
+  --color-text-secondary: #5a677d;
+  --color-text-muted: #647087;
   --color-text-inverse: #ffffff;
 
   /* Palette — Semantic & Status */
@@ -50,7 +50,7 @@
   --color-priority-low-fg: #0f766e;
 
   --color-category-bg: #f3f1ff;
-  --color-category-fg: #6457f5;
+  --color-category-fg: #5243e8;
 
   --color-danger: #dc2626;
   --color-danger-hover: #b91c1c;
