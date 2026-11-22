@@ -204,6 +204,13 @@
   line-height: var(--leading-normal);
 }
 
+.hero-mobile-br,
+.dashboard-hero__subtitle--mobile,
+.tasks-section__subtitle--mobile,
+.focus-carousel__mobile-progress {
+  display: none;
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -1388,7 +1395,83 @@
   min-width: 170px;
 }
 
-/* ---------- Responsive Component Rules (Base for Phase 5 refinement) ---------- */
+/* ---------- Mobile / Tablet Fixed Bottom Navigation ---------- */
+.mobile-nav {
+  display: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  box-shadow: 0 -4px 16px rgba(22, 33, 59, 0.04);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.mobile-nav__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  max-width: 640px;
+  margin: 0 auto;
+  height: var(--mobile-nav-height);
+}
+
+.mobile-nav__item {
+  display: flex;
+}
+
+.mobile-nav__btn {
+  position: relative;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 4px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.mobile-nav__btn:hover {
+  color: var(--color-text-primary);
+}
+
+.mobile-nav__btn--active,
+.mobile-nav__btn--active:hover {
+  color: var(--color-primary);
+}
+
+.mobile-nav__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-nav__label {
+  font-size: 0.75rem;
+  font-weight: var(--font-medium);
+  line-height: 1.1;
+}
+
+.mobile-nav__btn--active .mobile-nav__label {
+  font-weight: var(--font-semibold);
+}
+
+.mobile-nav__indicator {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 3.5px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+}
+
+/* ---------- Responsive Component Rules (1440 / 768 / 390) ---------- */
 @media (max-width: 1200px) {
   .focus-carousel__visual {
     gap: 28px;
@@ -1440,7 +1523,12 @@
   }
 }
 
+/* Tablet Breakpoint (768px) */
 @media (max-width: 768px) {
+  .mobile-nav {
+    display: block;
+  }
+
   .topbar__mobile-brand {
     display: inline-flex;
   }
@@ -1449,36 +1537,204 @@
     display: none;
   }
 
-  .focus-carousel {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 22px 22px 20px;
+  .dashboard-hero__title {
+    font-size: 1.875rem;
   }
 
-  .focus-carousel__visual {
-    justify-content: flex-end;
-    gap: 16px;
+  .focus-carousel {
+    padding: 22px 24px 20px;
+    gap: 18px;
+  }
+
+  .focus-carousel__headline {
+    font-size: 1.5rem;
+  }
+
+  .focus-carousel__nav-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .stats-grid {
+    gap: 14px;
+  }
+
+  .stat-card {
+    padding: 18px 16px;
+    column-gap: 12px;
+    min-height: 118px;
+  }
+
+  .stat-card__value {
+    font-size: 1.5rem;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .filter-bar__controls {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .search-field {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .priority-select {
+    width: 170px;
+    min-width: 150px;
+    flex-shrink: 0;
+  }
+
+  .task-row {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .task-status-toggle,
+  .task-menu__trigger {
+    width: 38px;
+    height: 38px;
+  }
+
+  .modal-card {
+    max-height: calc(100dvh - 32px);
+    overflow-y: auto;
+    padding: 28px 28px 24px;
   }
 }
 
+/* Mobile Breakpoint (390px — Matched to Mobile Dashboard PNG) */
 @media (max-width: 639px) {
   .topbar__chevron {
     display: none;
+  }
+
+  .hero-mobile-br {
+    display: inline;
+  }
+
+  .dashboard-hero__title {
+    font-size: 2rem; /* 32px */
+    line-height: 1.12;
+  }
+
+  .dashboard-hero__subtitle--desktop {
+    display: none;
+  }
+
+  .dashboard-hero__subtitle--mobile {
+    display: block;
+    margin-top: 10px;
   }
 
   .dashboard-hero__cta {
     display: none;
   }
 
+  /* Compact Purple Focus Notes Banner with Full 3-Slide Carousel Controls */
+  .focus-carousel {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding: 20px 20px 18px;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .focus-carousel__body {
+    min-height: 0;
+  }
+
+  .focus-carousel__meta {
+    gap: 14px;
+    font-size: 0.6875rem;
+  }
+
+  .focus-carousel__headline {
+    margin-top: 6px;
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.18;
+  }
+
+  .focus-carousel__subtitle {
+    margin-top: 6px;
+    font-size: 0.875rem;
+  }
+
+  .focus-carousel__mobile-progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .focus-carousel__mobile-track {
+    flex: 1;
+    height: 7px;
+    border-radius: var(--radius-pill);
+    background-color: rgba(255, 255, 255, 0.28);
+    overflow: hidden;
+  }
+
+  .focus-carousel__mobile-fill {
+    height: 100%;
+    border-radius: var(--radius-pill);
+    background-color: #ffffff;
+    transition: width var(--transition-base);
+  }
+
+  .focus-carousel__mobile-pct {
+    font-size: 0.875rem;
+    font-weight: var(--font-bold);
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+  }
+
+  .focus-carousel__indicators {
+    margin-top: 14px;
+    gap: 8px;
+  }
+
+  .focus-carousel__indicator-bar {
+    width: 34px;
+  }
+
+  .focus-carousel__visual {
+    justify-content: flex-end;
+    margin-top: -42px;
+    pointer-events: none;
+  }
+
+  .focus-carousel__controls {
+    pointer-events: auto;
+    gap: 8px;
+  }
+
+  .focus-carousel__nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
   .focus-preview {
     display: none;
   }
 
+  /* Overview Section — Preserve Mobile 2-Card Statistics Layout */
   .stats-section__mobile-heading {
     display: block;
+    font-size: 1.25rem;
+    margin-bottom: 14px;
   }
 
-  /* Preserve the 2-card statistics layout from the Mobile PNG reference */
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
@@ -1491,9 +1747,10 @@
   .stat-card {
     min-height: 112px;
     padding: 18px 16px;
-    grid-template-columns: 38px minmax(0, 1fr);
+    grid-template-columns: auto minmax(0, 1fr);
     column-gap: 12px;
-    row-gap: 14px;
+    row-gap: 16px;
+    align-items: center;
   }
 
   .stat-card__icon {
@@ -1505,16 +1762,219 @@
   .stat-card__value {
     grid-row: 2;
     grid-column: 1;
+    font-size: 1.75rem;
     text-align: left;
   }
 
   .stat-card__label {
     grid-row: 2;
     grid-column: 2;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
   }
 
   .stat-card__caption {
     display: none;
+  }
+
+  /* My Tasks Section on Mobile */
+  .tasks-section {
+    margin-top: 26px;
+  }
+
+  .tasks-section__header {
+    margin-bottom: 16px;
+  }
+
+  .tasks-section__subtitle--desktop {
+    display: none;
+  }
+
+  .tasks-section__subtitle--mobile {
+    display: block;
+  }
+
+  .tasks-section__view-all {
+    display: none;
+  }
+
+  .btn-icon-primary {
+    display: inline-grid;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  /* Mobile Filter Layout: Search & Priority above 3 Pill Status Tabs */
+  .filter-bar {
+    flex-direction: column-reverse;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .filter-bar__controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-field {
+    width: 100%;
+  }
+
+  .search-field__input {
+    height: 46px;
+    border-radius: 14px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: 0.875rem;
+  }
+
+  .priority-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .priority-select__control {
+    height: 44px;
+    border-radius: 12px;
+    padding: 11px 36px 11px 14px;
+  }
+
+  .filter-bar__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+
+  .filter-tab {
+    justify-content: center;
+    height: 40px;
+    padding: 0 8px;
+    border-radius: 12px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    font-size: 0.78125rem;
+    white-space: nowrap;
+  }
+
+  .filter-tab--active,
+  .filter-tab--active:hover {
+    background-color: var(--color-primary-tint);
+    border-color: #e0dbff;
+    color: var(--color-primary);
+  }
+
+  /* Mobile Stacked 2-Tier Task Cards */
+  .task-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'main menu'
+      'meta meta';
+    align-items: start;
+    row-gap: 14px;
+    column-gap: 8px;
+    padding: 18px 16px;
+    border-radius: 18px;
+  }
+
+  .task-row__main {
+    grid-area: main;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .task-status-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .task-row__title {
+    font-size: 1rem;
+  }
+
+  .task-row__description {
+    margin-top: 4px;
+    font-size: 0.875rem;
+  }
+
+  .task-menu {
+    grid-area: menu;
+    align-self: start;
+  }
+
+  .task-menu__trigger {
+    width: 40px;
+    height: 40px;
+    margin: -4px -6px 0 0;
+  }
+
+  .task-row__meta {
+    grid-area: meta;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .badge--category,
+  .badge--priority-high,
+  .badge--priority-medium,
+  .badge--priority-low {
+    height: 30px;
+    padding: 0 14px;
+    font-size: 0.8125rem;
+  }
+
+  .task-row__due {
+    min-width: 0;
+    font-size: 0.8125rem;
+  }
+
+  /* Responsive Task & Confirm Modals at 390px */
+  .modal-backdrop {
+    padding: 12px;
+  }
+
+  .modal-card {
+    padding: 22px 18px 20px;
+    border-radius: 20px;
+    max-height: calc(100dvh - 24px);
+  }
+
+  .modal-card--confirm {
+    padding: 22px 18px 20px;
+  }
+
+  .modal-card__title {
+    font-size: 1.375rem;
+  }
+
+  .modal-card__divider {
+    margin: 18px 0;
+  }
+
+  .task-form {
+    gap: 16px;
+  }
+
+  .form-grid-two {
+    gap: 12px;
+  }
+
+  .modal-card__footer {
+    gap: 10px;
+  }
+
+  .modal-card__btn,
+  .modal-card__btn--primary {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    padding: 0 14px;
   }
 }

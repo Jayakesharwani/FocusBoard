@@ -78,7 +78,7 @@
   }
 }
 
-/* Tablet & Mobile shell breakpoint (refined fully in Phase 5) */
+/* Tablet & Mobile shell breakpoint (<= 768px switches from sidebar to bottom nav) */
 @media (max-width: 768px) {
   .sidebar {
     display: none;
@@ -89,7 +89,7 @@
   }
 
   .dashboard-content {
-    padding: var(--space-6) var(--space-6) var(--space-10);
+    padding: var(--space-6) var(--space-6) calc(var(--mobile-nav-height) + 32px);
   }
 }
 
@@ -103,12 +103,12 @@
   }
 
   .dashboard-content {
-    padding: var(--space-6) var(--space-5) var(--space-10);
+    padding: 22px var(--space-5) calc(var(--mobile-nav-height) + 28px);
   }
 
   .dashboard-hero {
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-3);
     margin-bottom: var(--space-5);
   }
 }

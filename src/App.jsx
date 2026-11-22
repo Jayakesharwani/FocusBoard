@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import DeleteConfirmModal from './components/DeleteConfirmModal.jsx';
 import FocusCarousel from './components/FocusCarousel.jsx';
+import MobileNav from './components/MobileNav.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import StatsGrid from './components/StatsGrid.jsx';
 import TaskFormModal from './components/TaskFormModal.jsx';
@@ -69,9 +70,15 @@ function DashboardShell() {
 
           <header className="dashboard-hero">
             <div className="dashboard-hero__copy">
-              <h1 className="dashboard-hero__title">Your work, in focus.</h1>
-              <p className="dashboard-hero__subtitle">
+              <h1 className="dashboard-hero__title">
+                Your work,
+                <br className="hero-mobile-br" /> in focus.
+              </h1>
+              <p className="dashboard-hero__subtitle dashboard-hero__subtitle--desktop">
                 Plan your day, stay organized, and celebrate small wins.
+              </p>
+              <p className="dashboard-hero__subtitle dashboard-hero__subtitle--mobile">
+                Stay organized and keep moving forward.
               </p>
             </div>
 
@@ -93,6 +100,8 @@ function DashboardShell() {
           />
         </main>
       </div>
+
+      <MobileNav onPlaceholderSelect={setNotice} />
 
       <TaskFormModal
         isOpen={isFormOpen}

@@ -119,80 +119,80 @@ export default function TaskRow({
           <CalendarIcon size={14} />
           <span>{formatShortDueDate(task.dueDate)}</span>
         </span>
+      </div>
 
-        <div className="task-menu" ref={menuContainerRef}>
-          <button
-            ref={triggerRef}
-            type="button"
-            className="task-menu__trigger"
+      <div className="task-menu" ref={menuContainerRef}>
+        <button
+          ref={triggerRef}
+          type="button"
+          className="task-menu__trigger"
+          aria-label={`Actions for ${task.title}`}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((prev) => !prev)}
+        >
+          <DotsHorizontalIcon size={18} />
+        </button>
+
+        {menuOpen && (
+          <div
+            className="task-menu__dropdown"
+            role="menu"
             aria-label={`Actions for ${task.title}`}
-            aria-haspopup="menu"
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((prev) => !prev)}
           >
-            <DotsHorizontalIcon size={18} />
-          </button>
+            <p className="task-menu__heading" aria-hidden="true">
+              Set status
+            </p>
+            {TASK_STATUSES.map((status) => {
+              const isCurrent = task.status === status;
+              return (
+                <button
+                  key={status}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={isCurrent}
+                  className={`task-menu__item${
+                    isCurrent ? ' task-menu__item--current' : ''
+                  }`}
+                  onClick={() => handleSelectStatus(status)}
+                >
+                  <span>{status}</span>
+                  {isCurrent && (
+                    <span className="task-menu__check" aria-hidden="true">
+                      <CheckIcon size={14} />
+                    </span>
+                  )}
+                </button>
+              );
+            })}
 
-          {menuOpen && (
-            <div
-              className="task-menu__dropdown"
-              role="menu"
-              aria-label={`Actions for ${task.title}`}
+            <div className="task-menu__divider" role="separator" />
+
+            <button
+              type="button"
+              role="menuitem"
+              className="task-menu__item"
+              onClick={handleEditClick}
             >
-              <p className="task-menu__heading" aria-hidden="true">
-                Set status
-              </p>
-              {TASK_STATUSES.map((status) => {
-                const isCurrent = task.status === status;
-                return (
-                  <button
-                    key={status}
-                    type="button"
-                    role="menuitemradio"
-                    aria-checked={isCurrent}
-                    className={`task-menu__item${
-                      isCurrent ? ' task-menu__item--current' : ''
-                    }`}
-                    onClick={() => handleSelectStatus(status)}
-                  >
-                    <span>{status}</span>
-                    {isCurrent && (
-                      <span className="task-menu__check" aria-hidden="true">
-                        <CheckIcon size={14} />
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
+              <span className="task-menu__item-label">
+                <EditIcon size={14} />
+                <span>Edit task</span>
+              </span>
+            </button>
 
-              <div className="task-menu__divider" role="separator" />
-
-              <button
-                type="button"
-                role="menuitem"
-                className="task-menu__item"
-                onClick={handleEditClick}
-              >
-                <span className="task-menu__item-label">
-                  <EditIcon size={14} />
-                  <span>Edit task</span>
-                </span>
-              </button>
-
-              <button
-                type="button"
-                role="menuitem"
-                className="task-menu__item task-menu__item--danger"
-                onClick={handleDeleteClick}
-              >
-                <span className="task-menu__item-label">
-                  <TrashIcon size={14} />
-                  <span>Delete task</span>
-                </span>
-              </button>
-            </div>
-          )}
-        </div>
+            <button
+              type="button"
+              role="menuitem"
+              className="task-menu__item task-menu__item--danger"
+              onClick={handleDeleteClick}
+            >
+              <span className="task-menu__item-label">
+                <TrashIcon size={14} />
+                <span>Delete task</span>
+              </span>
+            </button>
+          </div>
+        )}
       </div>
     </li>
   );

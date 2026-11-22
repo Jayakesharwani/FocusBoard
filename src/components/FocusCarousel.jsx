@@ -33,6 +33,25 @@ export default function FocusCarousel() {
         <h2 className="focus-carousel__headline">{currentSlide.headline}</h2>
         <p className="focus-carousel__subtitle">{currentSlide.subtitle}</p>
 
+        <div className="focus-carousel__mobile-progress">
+          <div
+            className="focus-carousel__mobile-track"
+            role="progressbar"
+            aria-label={`${currentSlide.cardTitle} progress`}
+            aria-valuenow={currentSlide.progress}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div
+              className="focus-carousel__mobile-fill"
+              style={{ width: `${currentSlide.progress}%` }}
+            />
+          </div>
+          <span className="focus-carousel__mobile-pct">
+            {currentSlide.progress}%
+          </span>
+        </div>
+
         <div className="focus-carousel__indicators" role="tablist" aria-label="Focus Notes slides">
           {FOCUS_SLIDES.map((slide, index) => {
             const isActive = index === activeSlide;

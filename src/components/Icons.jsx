@@ -1,4 +1,8 @@
+import { useId } from 'react';
+
 export function BrandLogoIcon({ className = '' }) {
+  const gradId = useId();
+
   return (
     <svg
       className={className}
@@ -8,13 +12,13 @@ export function BrandLogoIcon({ className = '' }) {
       fill="none"
       aria-hidden="true"
     >
-      <rect width="38" height="38" rx="11" fill="url(#focusboard-logo-grad)" />
+      <rect width="38" height="38" rx="11" fill={`url(#${gradId})`} />
       <rect x="9.5" y="9.5" width="7.5" height="7.5" rx="2.4" fill="#FFFFFF" />
       <rect x="21" y="9.5" width="7.5" height="7.5" rx="2.4" fill="#FFFFFF" fillOpacity="0.92" />
       <rect x="9.5" y="21" width="7.5" height="7.5" rx="2.4" fill="#FFFFFF" fillOpacity="0.92" />
       <rect x="21" y="21" width="7.5" height="7.5" rx="2.4" fill="#FFFFFF" />
       <defs>
-        <linearGradient id="focusboard-logo-grad" x1="0" y1="0" x2="38" y2="38" gradientUnits="userSpaceOnUse">
+        <linearGradient id={gradId} x1="0" y1="0" x2="38" y2="38" gradientUnits="userSpaceOnUse">
           <stop stopColor="#6D61FA" />
           <stop offset="1" stopColor="#5649E5" />
         </linearGradient>

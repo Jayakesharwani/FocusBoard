@@ -51,8 +51,11 @@ export default function TaskList({
           <h2 id="my-tasks-heading" className="tasks-section__title">
             My tasks
           </h2>
-          <p className="tasks-section__subtitle">
+          <p className="tasks-section__subtitle tasks-section__subtitle--desktop">
             Manage and track everything in one place.
+          </p>
+          <p className="tasks-section__subtitle tasks-section__subtitle--mobile">
+            Your priorities for this week
           </p>
         </div>
 
