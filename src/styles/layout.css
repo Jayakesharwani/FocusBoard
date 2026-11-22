@@ -67,8 +67,19 @@
   margin-bottom: 26px;
 }
 
-/* Responsive scaffolding (refined fully in Phase 5) */
-@media (max-width: 1024px) {
+/* Medium desktop refinement (keeps 244px sidebar visible down to 769px) */
+@media (max-width: 1200px) {
+  .topbar__inner {
+    padding: 0 var(--space-6);
+  }
+
+  .dashboard-content {
+    padding: var(--space-7) var(--space-6) var(--space-8);
+  }
+}
+
+/* Tablet & Mobile shell breakpoint (refined fully in Phase 5) */
+@media (max-width: 768px) {
   .sidebar {
     display: none;
   }
@@ -78,7 +89,7 @@
   }
 
   .dashboard-content {
-    padding: var(--space-7) var(--space-6) var(--space-10);
+    padding: var(--space-6) var(--space-6) var(--space-10);
   }
 }
 

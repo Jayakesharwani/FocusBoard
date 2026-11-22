@@ -15,9 +15,11 @@ export default function TaskFormModal({
   const [status, setStatus] = useState('To do');
   const [priority, setPriority] = useState('Medium');
   const [dueDate, setDueDate] = useState('');
+  const [isDateFocused, setIsDateFocused] = useState(false);
   const [titleError, setTitleError] = useState('');
 
   const titleInputRef = useRef(null);
+  const dateInputRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -35,6 +37,7 @@ export default function TaskFormModal({
       setPriority('Medium');
       setDueDate('');
     }
+    setIsDateFocused(false);
     setTitleError('');
 
     const frame = requestAnimationFrame(() => {
@@ -227,11 +230,21 @@ export default function TaskFormModal({
               <span className="form-date-wrap__icon" aria-hidden="true">
                 <CalendarIcon size={18} />
               </span>
+              {!dueDate && !isDateFocused && (
+                <span className="form-date-wrap__placeholder" aria-hidden="true">
+                  DD / MM / YYYY
+                </span>
+              )}
               <input
+                ref={dateInputRef}
                 id="task-due-date-input"
                 type="date"
-                className="form-field__input form-field__input--date"
+                className={`form-field__input form-field__input--date${
+                  !dueDate ? ' form-field__input--date-empty' : ''
+                }`}
                 value={dueDate}
+                onFocus={() => setIsDateFocused(true)}
+                onBlur={() => setIsDateFocused(false)}
                 onChange={(event) => setDueDate(event.target.value)}
               />
             </div>

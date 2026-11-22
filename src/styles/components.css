@@ -1322,10 +1322,48 @@
   color: var(--color-text-muted);
   pointer-events: none;
   display: inline-flex;
+  z-index: 1;
+}
+
+.form-date-wrap__placeholder {
+  position: absolute;
+  left: 44px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--text-sm);
+  font-weight: var(--font-regular);
+  letter-spacing: 0.01em;
+  color: #9aa3b5;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
 }
 
 .form-field__input--date {
   padding-left: 44px;
+  padding-right: 14px;
+}
+
+.form-field__input--date-empty:not(:focus) {
+  color: transparent;
+}
+
+.form-field__input--date-empty:not(:focus)::-webkit-datetime-edit,
+.form-field__input--date-empty:not(:focus)::-webkit-datetime-edit-text,
+.form-field__input--date-empty:not(:focus)::-webkit-datetime-edit-month-field,
+.form-field__input--date-empty:not(:focus)::-webkit-datetime-edit-day-field,
+.form-field__input--date-empty:not(:focus)::-webkit-datetime-edit-year-field {
+  color: transparent;
+}
+
+.form-field__input--date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.48;
+  transition: opacity var(--transition-fast);
+}
+
+.form-field__input--date::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.85;
 }
 
 .task-form__required-note {
@@ -1351,7 +1389,58 @@
 }
 
 /* ---------- Responsive Component Rules (Base for Phase 5 refinement) ---------- */
+@media (max-width: 1200px) {
+  .focus-carousel__visual {
+    gap: 28px;
+  }
+
+  .filter-bar {
+    flex-wrap: wrap;
+  }
+
+  .search-field {
+    width: 210px;
+  }
+}
+
 @media (max-width: 1024px) {
+  .focus-carousel {
+    padding: 20px 22px 18px;
+  }
+
+  .focus-carousel__visual {
+    gap: 18px;
+  }
+
+  .task-row {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+
+  .task-row__meta {
+    gap: 8px;
+  }
+
+  .badge--category {
+    min-width: 78px;
+    padding: 0 10px;
+  }
+
+  .badge--priority-high,
+  .badge--priority-medium,
+  .badge--priority-low {
+    min-width: 64px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .focus-preview {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
   .topbar__mobile-brand {
     display: inline-flex;
   }
@@ -1360,12 +1449,6 @@
     display: none;
   }
 
-  .focus-carousel__visual {
-    gap: 28px;
-  }
-}
-
-@media (max-width: 820px) {
   .focus-carousel {
     flex-direction: column;
     align-items: stretch;
@@ -1373,12 +1456,8 @@
   }
 
   .focus-carousel__visual {
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: 16px;
-  }
-
-  .focus-preview {
-    width: 200px;
   }
 }
 
