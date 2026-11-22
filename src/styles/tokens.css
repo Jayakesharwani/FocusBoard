@@ -1,0 +1,129 @@
+/* ==========================================================================
+   FocusBoard Design Tokens
+   Derived from the six 2x Figma reference PNGs (Desktop 1440, Mobile 390,
+   Create-Task Form 760, and Focus Notes Carousel Slides 1-3).
+   ========================================================================== */
+
+:root {
+  /* Palette — Surfaces & Borders */
+  --color-bg-canvas: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-border: #e7eaf2;
+  --color-border-strong: #d7dce8;
+  --color-modal-backdrop: rgba(22, 33, 59, 0.32);
+  --color-modal-canvas: #ededf7;
+
+  /* Palette — Brand & Accents */
+  --color-primary: #6457f5;
+  --color-primary-hover: #5548e5;
+  --color-primary-active: #493cd6;
+  --color-primary-tint: #f0eeff;
+  --color-primary-tint-soft: #f3f1ff;
+  --color-primary-tint-hover: #e6e2ff;
+  --color-avatar-bg: #ddd8ff;
+  --color-banner-start: #6d61fa;
+  --color-banner-end: #5144d9;
+
+  /* Palette — Text */
+  --color-text-primary: #16213b;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #7c869a;
+  --color-text-inverse: #ffffff;
+
+  /* Palette — Semantic & Status */
+  --color-stat-total-bg: #eeeafe;
+  --color-stat-total-fg: #6457f5;
+
+  --color-stat-progress-bg: #e7f5fc;
+  --color-stat-progress-fg: #0284c7;
+
+  --color-stat-completed-bg: #e8faf3;
+  --color-stat-completed-fg: #0ea987;
+
+  --color-priority-high-bg: #fff4e5;
+  --color-priority-high-fg: #b45309;
+
+  --color-priority-medium-bg: #eaf6f4;
+  --color-priority-medium-fg: #0f766e;
+
+  --color-priority-low-bg: #eaf6f4;
+  --color-priority-low-fg: #0f766e;
+
+  --color-category-bg: #f3f1ff;
+  --color-category-fg: #6457f5;
+
+  --color-danger: #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
+
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 0.9375rem;  /* 15px */
+  --text-md: 1rem;         /* 16px */
+  --text-lg: 1.25rem;      /* 20px */
+  --text-xl: 1.5rem;       /* 24px */
+  --text-2xl: 1.75rem;     /* 28px */
+  --text-3xl: 2rem;        /* 32px */
+
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-11: 44px;
+
+  /* Layout Dimensions (Matched to Reference PNGs) */
+  --sidebar-width: 244px;
+  --topbar-height: 85px;
+  --mobile-header-height: 80px;
+  --mobile-nav-height: 76px;
+  --content-max-width: 1106px;
+  --banner-height-desktop: 152px;
+  --stat-card-height: 126px;
+  --modal-max-width: 600px;
+  --input-height: 48px;
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-banner: 20px;
+  --radius-modal: 24px;
+  --radius-pill: 9999px;
+
+  /* Elevation / Shadows */
+  --shadow-card: 0 2px 10px rgba(22, 33, 59, 0.03);
+  --shadow-card-hover: 0 6px 18px rgba(22, 33, 59, 0.06);
+  --shadow-banner: 0 12px 28px rgba(81, 68, 217, 0.22);
+  --shadow-primary-btn: 0 8px 18px rgba(100, 87, 245, 0.28);
+  --shadow-dropdown: 0 10px 28px rgba(22, 33, 59, 0.12);
+  --shadow-modal: 0 24px 56px rgba(22, 33, 59, 0.16);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+
+  /* Z-index Scale */
+  --z-sticky: 20;
+  --z-dropdown: 40;
+  --z-modal: 60;
+}
