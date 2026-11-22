@@ -61,6 +61,30 @@ export default function StatsGrid() {
           );
         })}
       </div>
+
+      <div className="stats-mobile-meta" aria-label="Additional task statistics">
+        <div className="stats-mobile-meta__item">
+          <span
+            className="stats-mobile-meta__dot stats-mobile-meta__dot--progress"
+            aria-hidden="true"
+          />
+          <span className="stats-mobile-meta__label">In progress</span>
+          <strong className="stats-mobile-meta__value">{stats.inProgress}</strong>
+        </div>
+
+        <span className="stats-mobile-meta__sep" aria-hidden="true" />
+
+        <div className="stats-mobile-meta__item">
+          <span
+            className="stats-mobile-meta__dot stats-mobile-meta__dot--completed"
+            aria-hidden="true"
+          />
+          <span className="stats-mobile-meta__label">Completed</span>
+          <strong className="stats-mobile-meta__value">
+            {stats.completionPercentage}%
+          </strong>
+        </div>
+      </div>
     </section>
   );
 }

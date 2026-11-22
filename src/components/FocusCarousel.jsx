@@ -6,7 +6,7 @@ import { CheckIcon, ChevronLeftIcon, ChevronRightIcon } from './Icons.jsx';
 export default function FocusCarousel() {
   const { activeSlide, nextSlide, prevSlide, goToSlide } = useTasks();
   const currentSlide = FOCUS_SLIDES[activeSlide] || FOCUS_SLIDES[0];
-  const touchStartXRef = useRef(null);
+  const touchStartRef = useRef(null);
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowRight') {
@@ -19,33 +19,42 @@ export default function FocusCarousel() {
   };
 
   const handleTouchStart = (event) => {
-    touchStartXRef.current = event.touches?.[0]?.clientX ?? null;
+    const touch = event.touches?.[0];
+    if (!touch) return;
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY };
   };
 
   const handleTouchEnd = (event) => {
-    const startX = touchStartXRef.current;
-    const endX = event.changedTouches?.[0]?.clientX ?? null;
-    touchStartXRef.current = null;
-    if (startX === null || endX === null) return;
-    const deltaX = endX - startX;
-    if (deltaX <= -40) {
-      nextSlide();
-    } else if (deltaX >= 40) {
-      prevSlide();
+    const start = touchStartRef.current;
+    const touch = event.changedTouches?.[0];
+    touchStartRef.current = null;
+    if (!start || !touch) return;
+
+    const deltaX = touch.clientX - start.x;
+    const deltaY = touch.clientY - start.y;
+
+    // Trigger slide change only for clearly horizontal swipes so vertical scrolling is unaffected.
+    if (Math.abs(deltaX) >= 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      if (deltaX < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
     }
   };
 
   return (
-    <section
-      className="focus-carousel"
-      role="region"
-      aria-roledescription="carousel"
-      aria-label="Focus Notes"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
+    <div className="focus-carousel-wrap">
+      <section
+        className="focus-carousel"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Focus Notes"
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
       <div className="focus-carousel__body">
         <div aria-live="polite" aria-atomic="true">
           <div className="focus-carousel__meta">
@@ -168,5 +177,48 @@ export default function FocusCarousel() {
         </div>
       </div>
     </section>
+
+    <div className="focus-carousel-mobile-bar" aria-label="Focus Notes slide controls">
+      <div className="focus-carousel-mobile-bar__dots" role="tablist" aria-label="Focus Notes mobile slides">
+        {FOCUS_SLIDES.map((slide, index) => {
+          const isActive = index === activeSlide;
+          return (
+            <button
+              key={slide.id}
+              type="button"
+              role="tab"
+              className={`focus-carousel-mobile-bar__dot-btn${
+                isActive ? ' focus-carousel-mobile-bar__dot-btn--active' : ''
+              }`}
+              aria-selected={isActive}
+              aria-label={`Show slide ${index + 1} of ${FOCUS_SLIDES.length}: ${slide.mobileHeadline || slide.headline}`}
+              onClick={() => goToSlide(index)}
+            >
+              <span className="focus-carousel-mobile-bar__dot" aria-hidden="true" />
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="focus-carousel-mobile-bar__nav">
+        <button
+          type="button"
+          className="focus-carousel-mobile-bar__btn"
+          aria-label="Previous focus note"
+          onClick={prevSlide}
+        >
+          <ChevronLeftIcon size={15} />
+        </button>
+        <button
+          type="button"
+          className="focus-carousel-mobile-bar__btn"
+          aria-label="Next focus note"
+          onClick={nextSlide}
+        >
+          <ChevronRightIcon size={15} />
+        </button>
+      </div>
+    </div>
+    </div>
   );
 }

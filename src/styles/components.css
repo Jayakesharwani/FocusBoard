@@ -209,6 +209,9 @@
 .tasks-section__subtitle--mobile,
 .focus-carousel__mobile-progress,
 .focus-carousel__mobile-only,
+.focus-carousel-mobile-bar,
+.stats-mobile-meta,
+.mobile-priority,
 .filter-tab__label-mobile {
   display: none;
 }
@@ -1678,7 +1681,8 @@
     );
     padding: 22px 22px 24px;
     gap: 0;
-    margin-bottom: 24px;
+    margin-bottom: 10px;
+    touch-action: pan-y;
   }
 
   .focus-carousel__desktop-only,
@@ -1752,7 +1756,72 @@
     flex-shrink: 0;
   }
 
-  /* Overview Section — Preserve Mobile 2-Card Statistics Layout */
+  /* Compact unobtrusive Focus Notes mobile controls & active-slide indicators */
+  .focus-carousel-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 0 2px;
+  }
+
+  .focus-carousel-mobile-bar__dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .focus-carousel-mobile-bar__dot-btn {
+    min-width: 24px;
+    min-height: 36px;
+    padding: 0 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+
+  .focus-carousel-mobile-bar__dot {
+    width: 8px;
+    height: 5px;
+    border-radius: var(--radius-pill);
+    background-color: #cbd5e1;
+    transition: width var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .focus-carousel-mobile-bar__dot-btn--active .focus-carousel-mobile-bar__dot {
+    width: 24px;
+    background-color: var(--color-primary);
+  }
+
+  .focus-carousel-mobile-bar__nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .focus-carousel-mobile-bar__btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: #52607a;
+    box-shadow: var(--shadow-card);
+    display: grid;
+    place-items: center;
+    transition: background-color var(--transition-fast), color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .focus-carousel-mobile-bar__btn:hover {
+    background-color: var(--color-primary-tint);
+    border-color: #ddd8ff;
+    color: var(--color-primary);
+  }
+
+  /* Overview Section — Preserve Mobile 2-Card Statistics Layout + Compact Secondary Strip */
   .stats-section__mobile-heading {
     display: block;
     font-size: 1.25rem;
@@ -1800,6 +1869,60 @@
     display: none;
   }
 
+  .stats-mobile-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .stats-mobile-meta__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+    font-size: 0.8125rem;
+  }
+
+  .stats-mobile-meta__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-pill);
+    flex-shrink: 0;
+  }
+
+  .stats-mobile-meta__dot--progress {
+    background-color: var(--color-stat-progress-fg);
+  }
+
+  .stats-mobile-meta__dot--completed {
+    background-color: var(--color-stat-completed-fg);
+  }
+
+  .stats-mobile-meta__label {
+    color: var(--color-text-secondary);
+    font-weight: var(--font-medium);
+  }
+
+  .stats-mobile-meta__value {
+    color: var(--color-text-primary);
+    font-weight: var(--font-bold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stats-mobile-meta__sep {
+    width: 1px;
+    height: 16px;
+    background-color: var(--color-border);
+    flex-shrink: 0;
+  }
+
   /* My Tasks Section on Mobile */
   .tasks-section {
     margin-top: 26px;
@@ -1828,7 +1951,7 @@
     border-radius: 14px;
   }
 
-  /* Mobile Filter Layout: Full-width Search above 3 Pill Status Tabs (Priority hidden per Mobile PNG) */
+  /* Mobile Filter Layout: Search + Compact Priority Trigger above 3 Pill Status Tabs */
   .filter-bar {
     flex-direction: column-reverse;
     background-color: transparent;
@@ -1840,13 +1963,15 @@
   }
 
   .filter-bar__controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
   }
 
   .search-field {
-    width: 100%;
+    flex: 1;
+    width: auto;
+    min-width: 0;
   }
 
   .search-field__input {
@@ -1855,6 +1980,48 @@
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     font-size: 0.875rem;
+  }
+
+  .mobile-priority {
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .mobile-priority__trigger {
+    height: 46px;
+    padding: 0 12px;
+    border-radius: 14px;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: #52607a;
+    font-size: 0.8125rem;
+    font-weight: var(--font-semibold);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .mobile-priority__trigger--active {
+    background-color: var(--color-primary-tint);
+    border-color: #ddd8ff;
+    color: var(--color-category-fg);
+  }
+
+  .mobile-priority__popover {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    width: 172px;
+    padding: 6px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-dropdown);
+    z-index: var(--z-dropdown);
   }
 
   .priority-select {

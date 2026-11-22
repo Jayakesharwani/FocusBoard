@@ -1,5 +1,12 @@
+import { useEffect, useRef, useState } from 'react';
 import { useTasks } from '../state/TaskContext.jsx';
-import { ChevronDownIcon, CloseIcon, SearchIcon } from './Icons.jsx';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  CloseIcon,
+  FilterIcon,
+  SearchIcon,
+} from './Icons.jsx';
 
 const STATUS_TABS = [
   { value: 'All', label: 'All tasks' },
@@ -8,10 +15,10 @@ const STATUS_TABS = [
 ];
 
 const PRIORITY_OPTIONS = [
-  { value: 'All', label: 'Priority: All' },
-  { value: 'High', label: 'Priority: High' },
-  { value: 'Medium', label: 'Priority: Medium' },
-  { value: 'Low', label: 'Priority: Low' },
+  { value: 'All', label: 'Priority: All', shortLabel: 'All priorities' },
+  { value: 'High', label: 'Priority: High', shortLabel: 'High' },
+  { value: 'Medium', label: 'Priority: Medium', shortLabel: 'Medium' },
+  { value: 'Low', label: 'Priority: Low', shortLabel: 'Low' },
 ];
 
 export default function FilterBar() {
@@ -22,6 +29,64 @@ export default function FilterBar() {
     setStatusFilter,
     setPriorityFilter,
   } = useTasks();
+
+  const [mobilePriorityOpen, setMobilePriorityOpen] = useState(false);
+  const mobilePriorityRef = useRef(null);
+  const mobilePriorityTriggerRef = useRef(null);
+
+  useEffect(() => {
+    if (!mobilePriorityOpen) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (
+        mobilePriorityRef.current &&
+        !mobilePriorityRef.current.contains(event.target)
+      ) {
+        setMobilePriorityOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setMobilePriorityOpen(false);
+        mobilePriorityTriggerRef.current?.focus();
+      }
+    };
+
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [mobilePriorityOpen]);
+
+  const handleMobileMenuKeyDown = (event) => {
+    if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') {
+      return;
+    }
+    const items = mobilePriorityRef.current?.querySelectorAll('[role="menuitemradio"]');
+    if (!items || items.length === 0) return;
+
+    event.preventDefault();
+    const list = Array.from(items);
+    const currentIndex = list.indexOf(document.activeElement);
+    const nextIndex =
+      event.key === 'ArrowDown'
+        ? (currentIndex + 1) % list.length
+        : (currentIndex - 1 + list.length) % list.length;
+    list[nextIndex]?.focus();
+  };
+
+  const handleSelectMobilePriority = (value) => {
+    setPriorityFilter(value);
+    setMobilePriorityOpen(false);
+    mobilePriorityTriggerRef.current?.focus();
+  };
+
+  const isPriorityFiltered = filters.priority !== 'All';
+  const mobileTriggerText = isPriorityFiltered ? filters.priority : 'Priority';
 
   return (
     <div className="filter-bar" role="region" aria-label="Task filters">
@@ -78,6 +143,58 @@ export default function FilterBar() {
             >
               <CloseIcon size={13} />
             </button>
+          )}
+        </div>
+
+        <div className="mobile-priority" ref={mobilePriorityRef}>
+          <button
+            ref={mobilePriorityTriggerRef}
+            type="button"
+            className={`mobile-priority__trigger${
+              isPriorityFiltered ? ' mobile-priority__trigger--active' : ''
+            }`}
+            aria-label={`Filter tasks by priority, currently ${filters.priority}`}
+            aria-haspopup="menu"
+            aria-expanded={mobilePriorityOpen}
+            onClick={() => setMobilePriorityOpen((prev) => !prev)}
+          >
+            <FilterIcon size={15} />
+            <span className="mobile-priority__label">{mobileTriggerText}</span>
+          </button>
+
+          {mobilePriorityOpen && (
+            <div
+              className="mobile-priority__popover"
+              role="menu"
+              aria-label="Filter tasks by priority"
+              onKeyDown={handleMobileMenuKeyDown}
+            >
+              <p className="task-menu__heading" aria-hidden="true">
+                Priority
+              </p>
+              {PRIORITY_OPTIONS.map((option) => {
+                const isSelected = filters.priority === option.value;
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    role="menuitemradio"
+                    aria-checked={isSelected}
+                    className={`task-menu__item${
+                      isSelected ? ' task-menu__item--current' : ''
+                    }`}
+                    onClick={() => handleSelectMobilePriority(option.value)}
+                  >
+                    <span>{option.shortLabel}</span>
+                    {isSelected && (
+                      <span className="task-menu__check" aria-hidden="true">
+                        <CheckIcon size={14} />
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           )}
         </div>
 

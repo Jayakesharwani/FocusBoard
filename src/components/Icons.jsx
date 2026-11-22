@@ -163,3 +163,17 @@ export function PlusIcon({ size = 20 }) {
     </svg>
   );
 }
+
+export function FilterIcon({ size = 15 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <path
+        d="M2.5 4.25H15.5L10.75 9.75V14L7.25 15.25V9.75L2.5 4.25Z"
+        stroke="currentColor"
+        strokeWidth="1.55"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
