@@ -27,12 +27,27 @@ export default function FocusCarousel() {
       <div className="focus-carousel__body">
         <div aria-live="polite" aria-atomic="true">
           <div className="focus-carousel__meta">
-            <span className="focus-carousel__eyebrow">{currentSlide.eyebrow}</span>
+            <span className="focus-carousel__eyebrow focus-carousel__desktop-only">
+              {currentSlide.eyebrow}
+            </span>
+            <span className="focus-carousel__eyebrow focus-carousel__mobile-only">
+              {currentSlide.mobileEyebrow || currentSlide.eyebrow}
+            </span>
             <span className="focus-carousel__counter">{currentSlide.counter}</span>
           </div>
 
-          <h2 className="focus-carousel__headline">{currentSlide.headline}</h2>
-          <p className="focus-carousel__subtitle">{currentSlide.subtitle}</p>
+          <h2 className="focus-carousel__headline">
+            <span className="focus-carousel__desktop-only">{currentSlide.headline}</span>
+            <span className="focus-carousel__mobile-only">
+              {currentSlide.mobileHeadline || currentSlide.headline}
+            </span>
+          </h2>
+          <p className="focus-carousel__subtitle">
+            <span className="focus-carousel__desktop-only">{currentSlide.subtitle}</span>
+            <span className="focus-carousel__mobile-only">
+              {currentSlide.mobileSubtitle || currentSlide.subtitle}
+            </span>
+          </p>
         </div>
 
         <div className="focus-carousel__mobile-progress">

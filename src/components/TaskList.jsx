@@ -3,8 +3,6 @@ import FilterBar from './FilterBar.jsx';
 import { PlusIcon } from './Icons.jsx';
 import TaskRow from './TaskRow.jsx';
 
-const OVERVIEW_PREVIEW_LIMIT = 3;
-
 export default function TaskList({
   onOpenCreate,
   onEditTask,
@@ -25,23 +23,16 @@ export default function TaskList({
     filters.status !== 'All' ||
     filters.priority !== 'All';
 
-  const isPreviewMode = activeView === 'overview' && !hasActiveFilters;
-  const visibleTasks = isPreviewMode
-    ? filteredTasks.slice(0, OVERVIEW_PREVIEW_LIMIT)
-    : filteredTasks;
+  const visibleTasks = filteredTasks;
 
-  const handleToggleAllTasks = () => {
-    if (activeView === 'tasks' && !hasActiveFilters) {
-      setView('overview');
-    } else {
-      resetFilters();
-      setView('tasks');
-    }
+  const handleViewAllTasks = () => {
+    resetFilters();
+    setView(activeView === 'tasks' && !hasActiveFilters ? 'overview' : 'tasks');
   };
 
   const viewAllLabel =
     activeView === 'tasks' && !hasActiveFilters
-      ? 'Show compact'
+      ? 'Back to overview'
       : 'View all tasks';
 
   return (
@@ -63,7 +54,7 @@ export default function TaskList({
           <button
             type="button"
             className="btn-soft tasks-section__view-all"
-            onClick={handleToggleAllTasks}
+            onClick={handleViewAllTasks}
           >
             {viewAllLabel}
           </button>

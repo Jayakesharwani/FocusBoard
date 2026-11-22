@@ -207,7 +207,9 @@
 .hero-mobile-br,
 .dashboard-hero__subtitle--mobile,
 .tasks-section__subtitle--mobile,
-.focus-carousel__mobile-progress {
+.focus-carousel__mobile-progress,
+.focus-carousel__mobile-only,
+.filter-tab__label-mobile {
   display: none;
 }
 
@@ -1229,6 +1231,15 @@
   color: var(--color-text-primary);
 }
 
+.form-field__required {
+  color: var(--color-text-primary);
+  transition: color var(--transition-fast);
+}
+
+.form-field__required--error {
+  color: var(--color-danger);
+}
+
 .form-field__input,
 .form-field__textarea,
 .form-field__select {
@@ -1381,6 +1392,12 @@
   margin-top: -6px;
   font-size: 0.8125rem;
   color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.task-form__required-note--error {
+  color: var(--color-danger);
+  font-weight: var(--font-medium);
 }
 
 .modal-card__footer {
@@ -1643,14 +1660,31 @@
     display: none;
   }
 
-  /* Compact Purple Focus Notes Banner with Full 3-Slide Carousel Controls */
+  /* Compact Purple Focus Notes Banner matching Mobile Dashboard PNG */
   .focus-carousel {
+    position: relative;
     flex-direction: column;
     align-items: stretch;
     min-height: 0;
-    padding: 20px 20px 18px;
-    gap: 12px;
+    border-radius: 22px;
+    background: linear-gradient(
+      128deg,
+      var(--color-banner-start) 0%,
+      #5f52eb 54%,
+      var(--color-banner-end) 100%
+    );
+    padding: 22px 22px 16px;
+    gap: 0;
     margin-bottom: 24px;
+  }
+
+  .focus-carousel__desktop-only,
+  .focus-carousel__counter {
+    display: none;
+  }
+
+  .focus-carousel__mobile-only {
+    display: inline;
   }
 
   .focus-carousel__body {
@@ -1658,26 +1692,36 @@
   }
 
   .focus-carousel__meta {
-    gap: 14px;
-    font-size: 0.6875rem;
+    gap: 0;
+    padding-right: 78px;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+
+  .focus-carousel__eyebrow {
+    font-weight: var(--font-semibold);
+    color: rgba(255, 255, 255, 0.84);
   }
 
   .focus-carousel__headline {
-    margin-top: 6px;
+    margin-top: 8px;
     font-size: 1.5rem; /* 24px */
+    font-weight: var(--font-bold);
     line-height: 1.18;
+    letter-spacing: -0.02em;
   }
 
   .focus-carousel__subtitle {
-    margin-top: 6px;
+    margin-top: 8px;
     font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.86);
   }
 
   .focus-carousel__mobile-progress {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-top: 16px;
+    gap: 14px;
+    margin-top: 18px;
   }
 
   .focus-carousel__mobile-track {
@@ -1704,28 +1748,49 @@
   }
 
   .focus-carousel__indicators {
-    margin-top: 14px;
-    gap: 8px;
+    margin-top: 10px;
+    gap: 6px;
+  }
+
+  .focus-carousel__indicator {
+    padding: 4px 0;
   }
 
   .focus-carousel__indicator-bar {
-    width: 34px;
+    width: 24px;
+    height: 3px;
   }
 
   .focus-carousel__visual {
-    justify-content: flex-end;
-    margin-top: -42px;
-    pointer-events: none;
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    margin-top: 0;
+    gap: 0;
+    pointer-events: auto;
   }
 
   .focus-carousel__controls {
-    pointer-events: auto;
-    gap: 8px;
+    gap: 6px;
   }
 
   .focus-carousel__nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .focus-carousel__nav-btn--prev {
+    background-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .focus-carousel__nav-btn--next {
+    background-color: rgba(255, 255, 255, 0.24);
+    color: #ffffff;
+    box-shadow: none;
+  }
+
+  .focus-carousel__nav-btn--next:hover {
+    background-color: rgba(255, 255, 255, 0.36);
   }
 
   .focus-preview {
@@ -1808,7 +1873,7 @@
     border-radius: 14px;
   }
 
-  /* Mobile Filter Layout: Search & Priority above 3 Pill Status Tabs */
+  /* Mobile Filter Layout: Full-width Search above 3 Pill Status Tabs (Priority hidden per Mobile PNG) */
   .filter-bar {
     flex-direction: column-reverse;
     background-color: transparent;
@@ -1838,14 +1903,15 @@
   }
 
   .priority-select {
-    width: 100%;
-    min-width: 0;
+    display: none;
   }
 
-  .priority-select__control {
-    height: 44px;
-    border-radius: 12px;
-    padding: 11px 36px 11px 14px;
+  .filter-tab__label-desktop {
+    display: none;
+  }
+
+  .filter-tab__label-mobile {
+    display: inline;
   }
 
   .filter-bar__tabs {

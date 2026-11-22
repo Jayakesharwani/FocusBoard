@@ -37,9 +37,14 @@ export default function FilterBar() {
               className={`filter-tab${isActive ? ' filter-tab--active' : ''}`}
               onClick={() => setStatusFilter(tab.value)}
             >
-              <span>{tab.label}</span>
-              {tab.value === 'All' && (
-                <span className="filter-tab__count">{stats.total}</span>
+              {tab.value === 'All' ? (
+                <>
+                  <span className="filter-tab__label-desktop">{tab.label}</span>
+                  <span className="filter-tab__label-mobile">All</span>
+                  <span className="filter-tab__count">{stats.total}</span>
+                </>
+              ) : (
+                <span>{tab.label}</span>
               )}
             </button>
           );

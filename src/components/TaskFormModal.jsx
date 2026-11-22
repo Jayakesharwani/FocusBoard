@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useModalFocus } from '../hooks/useModalFocus.js';
 import { TASK_PRIORITIES, TASK_STATUSES } from '../state/taskReducer.js';
+import { formatShortDueDate } from '../utils/dateFormat.js';
 import { CalendarIcon, ChevronDownIcon, CloseIcon } from './Icons.jsx';
 
 export default function TaskFormModal({
@@ -19,9 +20,11 @@ export default function TaskFormModal({
   const [dueDate, setDueDate] = useState('');
   const [isDateFocused, setIsDateFocused] = useState(false);
   const [titleError, setTitleError] = useState('');
+  const [dueDateError, setDueDateError] = useState('');
 
   const dialogRef = useRef(null);
   const titleInputRef = useRef(null);
+  const dateInputRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -41,6 +44,7 @@ export default function TaskFormModal({
     }
     setIsDateFocused(false);
     setTitleError('');
+    setDueDateError('');
   }, [isOpen, editingTask]);
 
   useModalFocus({
@@ -55,13 +59,33 @@ export default function TaskFormModal({
     return null;
   }
 
+  const isValidDueDate = (value) =>
+    typeof value === 'string' &&
+    value.trim().length > 0 &&
+    formatShortDueDate(value.trim()) !== 'No date';
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const trimmedTitle = title.trim();
+    const trimmedDate = dueDate.trim();
 
-    if (!trimmedTitle) {
-      setTitleError('Please enter a task title before saving.');
+    const nextTitleError = trimmedTitle
+      ? ''
+      : 'Please enter a task title before saving.';
+    const nextDateError = isValidDueDate(trimmedDate)
+      ? ''
+      : 'Please select a due date.';
+
+    setTitleError(nextTitleError);
+    setDueDateError(nextDateError);
+
+    if (nextTitleError) {
       titleInputRef.current?.focus();
+      return;
+    }
+
+    if (nextDateError) {
+      dateInputRef.current?.focus();
       return;
     }
 
@@ -71,9 +95,11 @@ export default function TaskFormModal({
       description: description.trim(),
       status,
       priority,
-      dueDate,
+      dueDate: trimmedDate,
     });
   };
+
+  const hasValidationError = Boolean(titleError || dueDateError);
 
   return (
     <div
@@ -120,7 +146,15 @@ export default function TaskFormModal({
         <form className="task-form" onSubmit={handleSubmit} noValidate>
           <div className="form-field">
             <label htmlFor="task-title-input" className="form-field__label">
-              Task title <span aria-hidden="true">*</span>
+              Task title{' '}
+              <span
+                className={`form-field__required${
+                  titleError ? ' form-field__required--error' : ''
+                }`}
+                aria-hidden="true"
+              >
+                *
+              </span>
             </label>
             <input
               ref={titleInputRef}
@@ -216,7 +250,15 @@ export default function TaskFormModal({
 
           <div className="form-field">
             <label htmlFor="task-due-date-input" className="form-field__label">
-              Due date
+              Due date{' '}
+              <span
+                className={`form-field__required${
+                  dueDateError ? ' form-field__required--error' : ''
+                }`}
+                aria-hidden="true"
+              >
+                *
+              </span>
             </label>
             <div className="form-date-wrap">
               <span className="form-date-wrap__icon" aria-hidden="true">
@@ -228,20 +270,45 @@ export default function TaskFormModal({
                 </span>
               )}
               <input
+                ref={dateInputRef}
                 id="task-due-date-input"
                 type="date"
                 className={`form-field__input form-field__input--date${
                   !dueDate ? ' form-field__input--date-empty' : ''
-                }`}
+                }${dueDateError ? ' form-field__input--error' : ''}`}
                 value={dueDate}
+                aria-required="true"
+                aria-invalid={Boolean(dueDateError)}
+                aria-describedby={dueDateError ? 'task-due-date-error' : undefined}
                 onFocus={() => setIsDateFocused(true)}
                 onBlur={() => setIsDateFocused(false)}
-                onChange={(event) => setDueDate(event.target.value)}
+                onChange={(event) => {
+                  const nextValue = event.target.value;
+                  setDueDate(nextValue);
+                  if (dueDateError && isValidDueDate(nextValue)) {
+                    setDueDateError('');
+                  }
+                }}
               />
             </div>
+            {dueDateError && (
+              <p
+                id="task-due-date-error"
+                className="form-field__error"
+                role="alert"
+              >
+                {dueDateError}
+              </p>
+            )}
           </div>
 
-          <p className="task-form__required-note">* Required field</p>
+          <p
+            className={`task-form__required-note${
+              hasValidationError ? ' task-form__required-note--error' : ''
+            }`}
+          >
+            * Required field
+          </p>
 
           <hr className="modal-card__divider modal-card__divider--footer" />
 
