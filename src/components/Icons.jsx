@@ -108,3 +108,54 @@ export function CheckIcon({ size = 18 }) {
     </svg>
   );
 }
+
+export function SearchIcon({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <circle cx="8.25" cy="8.25" r="5.5" stroke="currentColor" strokeWidth="1.65" />
+      <path d="M12.5 12.5L15.75 15.75" stroke="currentColor" strokeWidth="1.65" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function DotsHorizontalIcon({ size = 18 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <circle cx="5" cy="10" r="1.4" fill="currentColor" />
+      <circle cx="10" cy="10" r="1.4" fill="currentColor" />
+      <circle cx="15" cy="10" r="1.4" fill="currentColor" />
+    </svg>
+  );
+}
+
+export function CloseIcon({ size = 16 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M4.25 4.25L11.75 11.75M11.75 4.25L4.25 11.75" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function EditIcon({ size = 15 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M11.333 2.667a1.57 1.57 0 0 1 2.222 2.222l-7.5 7.5-2.888.667.666-2.889 7.5-7.5Z" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function TrashIcon({ size = 15 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2.667 4.333h10.666M6 4.333V3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1.333m1.667 0-.556 8.334a1.333 1.333 0 0 1-1.33 1.245H6.219a1.333 1.333 0 0 1-1.33-1.245l-.556-8.334" stroke="currentColor" strokeWidth="1.45" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function PlusIcon({ size = 20 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M10 4.5V15.5M4.5 10H15.5" stroke="currentColor" strokeWidth="2.1" strokeLinecap="round" />
+    </svg>
+  );
+}

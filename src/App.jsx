@@ -1,12 +1,49 @@
 import { useState } from 'react';
+import DeleteConfirmModal from './components/DeleteConfirmModal.jsx';
 import FocusCarousel from './components/FocusCarousel.jsx';
 import Sidebar from './components/Sidebar.jsx';
 import StatsGrid from './components/StatsGrid.jsx';
+import TaskFormModal from './components/TaskFormModal.jsx';
+import TaskList from './components/TaskList.jsx';
 import Topbar from './components/Topbar.jsx';
-import { TaskProvider } from './state/TaskContext.jsx';
+import { TaskProvider, useTasks } from './state/TaskContext.jsx';
 
 function DashboardShell() {
+  const { addTask, updateTask, deleteTask } = useTasks();
+
   const [notice, setNotice] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
+  const [taskToDelete, setTaskToDelete] = useState(null);
+
+  const handleOpenCreate = () => {
+    setEditingTask(null);
+    setIsFormOpen(true);
+  };
+
+  const handleOpenEdit = (task) => {
+    setEditingTask(task);
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setEditingTask(null);
+  };
+
+  const handleFormSubmit = (formData) => {
+    if (editingTask) {
+      updateTask(formData);
+    } else {
+      addTask(formData);
+    }
+    handleCloseForm();
+  };
+
+  const handleConfirmDelete = (taskId) => {
+    deleteTask(taskId);
+    setTaskToDelete(null);
+  };
 
   return (
     <div className="app-shell">
@@ -41,9 +78,7 @@ function DashboardShell() {
             <button
               type="button"
               className="btn-primary dashboard-hero__cta"
-              onClick={() =>
-                setNotice('Create-task form will be connected in Phase 4.')
-              }
+              onClick={handleOpenCreate}
             >
               New task
             </button>
@@ -51,8 +86,26 @@ function DashboardShell() {
 
           <FocusCarousel />
           <StatsGrid />
+          <TaskList
+            onOpenCreate={handleOpenCreate}
+            onEditTask={handleOpenEdit}
+            onRequestDelete={setTaskToDelete}
+          />
         </main>
       </div>
+
+      <TaskFormModal
+        isOpen={isFormOpen}
+        editingTask={editingTask}
+        onClose={handleCloseForm}
+        onSubmit={handleFormSubmit}
+      />
+
+      <DeleteConfirmModal
+        task={taskToDelete}
+        onCancel={() => setTaskToDelete(null)}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }
