@@ -13,11 +13,7 @@ const SHORT_MONTHS = [
   'Dec',
 ];
 
-/**
- * Formats an ISO calendar date string ('YYYY-MM-DD') as 'Nov 22'
- * without timezone offset drift. Safely falls back to 'No date'
- * for empty or malformed values.
- */
+ 
 export function formatShortDueDate(dateStr) {
   if (!dateStr || typeof dateStr !== 'string') {
     return 'No date';
