@@ -1,5 +1,653 @@
 /* ==========================================================================
-   FocusBoard Component Styles
-   Carousel, stat cards, filter bar, task rows, badges, and modals.
-   Populated in Phases 3 & 4.
+   FocusBoard Component Styles (Phase 3: Navigation, Hero, Carousel, Stats)
    ========================================================================== */
+
+/* ---------- Sidebar ---------- */
+.sidebar__brand {
+  height: var(--topbar-height);
+  padding: 0 var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.sidebar__logo-mark {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.sidebar__brand-name {
+  font-size: 1.1875rem;
+  font-weight: var(--font-bold);
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+}
+
+.sidebar__nav {
+  padding: 20px 18px var(--space-6);
+}
+
+.sidebar__section-label {
+  padding: 0 14px;
+  margin-bottom: 12px;
+  font-size: 0.6875rem;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar__link {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: #52607a;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.sidebar__link:hover {
+  background-color: var(--color-bg-canvas);
+  color: var(--color-text-primary);
+}
+
+.sidebar__link--active,
+.sidebar__link--active:hover {
+  background-color: var(--color-primary-tint);
+  color: var(--color-primary);
+  font-weight: var(--font-semibold);
+}
+
+.sidebar__link-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ---------- Topbar ---------- */
+.topbar__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.topbar__mobile-brand {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar__mobile-logo {
+  width: 36px;
+  height: 36px;
+}
+
+.topbar__mobile-brand-name {
+  font-size: 1.125rem;
+  font-weight: var(--font-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+}
+
+.topbar__breadcrumb {
+  display: flex;
+  align-items: center;
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}
+
+.topbar__breadcrumb-root {
+  color: var(--color-text-muted);
+  font-weight: var(--font-medium);
+}
+
+.topbar__breadcrumb-sep {
+  margin: 0 10px;
+  color: #cbd5e1;
+}
+
+.topbar__breadcrumb-current {
+  color: var(--color-text-primary);
+  font-weight: var(--font-semibold);
+}
+
+.topbar__profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  transition: background-color var(--transition-fast);
+}
+
+.topbar__profile:hover {
+  background-color: var(--color-bg-canvas);
+}
+
+.topbar__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-avatar-bg);
+  color: #5144d9;
+  font-size: 0.8125rem;
+  font-weight: var(--font-semibold);
+  display: grid;
+  place-items: center;
+  letter-spacing: 0.01em;
+}
+
+.topbar__chevron {
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ---------- Lightweight Placeholder Notice ---------- */
+.placeholder-notice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary-tint);
+  border: 1px solid #ddd8ff;
+  color: #3f36b5;
+  font-size: var(--text-sm);
+}
+
+.placeholder-notice__dismiss {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-primary);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.placeholder-notice__dismiss:hover {
+  background-color: rgba(100, 87, 245, 0.1);
+}
+
+/* ---------- Hero Header & Primary Button ---------- */
+.dashboard-hero__copy {
+  min-width: 0;
+}
+
+.dashboard-hero__title {
+  font-size: 2.125rem; /* 34px */
+  font-weight: var(--font-bold);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+
+.dashboard-hero__subtitle {
+  margin-top: 8px;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 46px;
+  min-width: 170px;
+  padding: 0 28px;
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  box-shadow: var(--shadow-primary-btn);
+  transition: background-color var(--transition-fast), transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  background-color: var(--color-primary-active);
+  transform: translateY(0);
+}
+
+.dashboard-hero__cta {
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ---------- Focus Notes Carousel (1106 x 152 Desktop Reference) ---------- */
+.focus-carousel {
+  position: relative;
+  width: 100%;
+  min-height: var(--banner-height-desktop);
+  border-radius: var(--radius-banner);
+  background: linear-gradient(
+    102deg,
+    var(--color-banner-start) 0%,
+    #6053ec 55%,
+    var(--color-banner-end) 100%
+  );
+  box-shadow: var(--shadow-banner);
+  padding: 22px 28px 18px 36px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  overflow: hidden;
+  color: var(--color-text-inverse);
+}
+
+.focus-carousel__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 112px;
+}
+
+.focus-carousel__meta {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.focus-carousel__eyebrow {
+  font-weight: var(--font-bold);
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+}
+
+.focus-carousel__counter {
+  font-weight: var(--font-semibold);
+  color: rgba(255, 255, 255, 0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+.focus-carousel__headline {
+  margin-top: 6px;
+  font-size: 1.75rem; /* 28px */
+  font-weight: var(--font-bold);
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  color: var(--color-text-inverse);
+}
+
+.focus-carousel__subtitle {
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  font-weight: var(--font-regular);
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.focus-carousel__indicators {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.focus-carousel__indicator {
+  padding: 6px 0;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.focus-carousel__indicator:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.focus-carousel__indicator-bar {
+  width: 44px;
+  height: 3.5px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.34);
+  transition: background-color var(--transition-base), transform var(--transition-fast);
+}
+
+.focus-carousel__indicator:hover .focus-carousel__indicator-bar {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.focus-carousel__indicator--active .focus-carousel__indicator-bar {
+  background-color: #ffffff;
+}
+
+/* Right visual zone: Tilted task preview + circular arrows */
+.focus-carousel__visual {
+  display: flex;
+  align-items: center;
+  gap: 78px;
+  flex-shrink: 0;
+}
+
+.focus-preview {
+  position: relative;
+  width: 214px;
+  padding: 2px 0;
+}
+
+.focus-preview__ghost {
+  position: absolute;
+  inset: 10px 6px -10px -14px;
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.16);
+  transform: rotate(-6.5deg);
+}
+
+.focus-preview__card {
+  position: relative;
+  background-color: var(--color-surface);
+  border-radius: 16px;
+  padding: 15px 16px 14px;
+  transform: rotate(2.6deg);
+  box-shadow: 0 12px 24px rgba(32, 23, 128, 0.18);
+  color: var(--color-text-primary);
+}
+
+.focus-preview__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.focus-preview__check-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background-color: var(--color-stat-completed-bg);
+  color: var(--color-stat-completed-fg);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.focus-preview__text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.focus-preview__eyebrow {
+  font-size: 0.625rem; /* 10px */
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.focus-preview__title {
+  margin-top: 2px;
+  font-size: 0.8125rem; /* 13px */
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+.focus-preview__progress-row {
+  margin-top: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.focus-preview__progress-track {
+  flex: 1;
+  height: 5px;
+  border-radius: var(--radius-pill);
+  background-color: #eceafd;
+  overflow: hidden;
+}
+
+.focus-preview__progress-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+.focus-preview__progress-value {
+  font-size: 0.6875rem; /* 11px */
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.focus-carousel__controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.focus-carousel__nav-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.focus-carousel__nav-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.focus-carousel__nav-btn--prev {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.focus-carousel__nav-btn--prev:hover {
+  background-color: rgba(255, 255, 255, 0.28);
+  transform: scale(1.04);
+}
+
+.focus-carousel__nav-btn--next {
+  background-color: #ffffff;
+  color: var(--color-banner-end);
+  box-shadow: 0 4px 12px rgba(22, 33, 59, 0.14);
+}
+
+.focus-carousel__nav-btn--next:hover {
+  background-color: #f6f7fb;
+  transform: scale(1.04);
+}
+
+/* ---------- Overview Statistics Grid ---------- */
+.stats-section__mobile-heading {
+  display: none;
+  font-size: 1.25rem;
+  font-weight: var(--font-bold);
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  margin-bottom: 14px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.stat-card {
+  min-height: var(--stat-card-height);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  column-gap: 16px;
+  row-gap: 12px;
+  align-items: center;
+}
+
+.stat-card__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+}
+
+.stat-card__icon--total {
+  background-color: var(--color-stat-total-bg);
+  color: var(--color-stat-total-fg);
+}
+
+.stat-card__icon--progress {
+  background-color: var(--color-stat-progress-bg);
+  color: var(--color-stat-progress-fg);
+}
+
+.stat-card__icon--completed {
+  background-color: var(--color-stat-completed-bg);
+  color: var(--color-stat-completed-fg);
+}
+
+.stat-card__label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+}
+
+.stat-card__value {
+  font-size: 1.75rem; /* 28px */
+  font-weight: var(--font-bold);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--color-text-primary);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-card__caption {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.35;
+}
+
+/* ---------- Responsive Component Rules (Base for Phase 5 refinement) ---------- */
+@media (max-width: 1024px) {
+  .topbar__mobile-brand {
+    display: inline-flex;
+  }
+
+  .topbar__breadcrumb {
+    display: none;
+  }
+
+  .focus-carousel__visual {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 820px) {
+  .focus-carousel {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px 22px 20px;
+  }
+
+  .focus-carousel__visual {
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .focus-preview {
+    width: 200px;
+  }
+}
+
+@media (max-width: 639px) {
+  .topbar__chevron {
+    display: none;
+  }
+
+  .dashboard-hero__cta {
+    display: none;
+  }
+
+  .focus-preview {
+    display: none;
+  }
+
+  .stats-section__mobile-heading {
+    display: block;
+  }
+
+  /* Preserve the 2-card statistics layout from the Mobile PNG reference */
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .stat-card--hide-mobile {
+    display: none;
+  }
+
+  .stat-card {
+    min-height: 112px;
+    padding: 18px 16px;
+    grid-template-columns: 38px minmax(0, 1fr);
+    column-gap: 12px;
+    row-gap: 14px;
+  }
+
+  .stat-card__icon {
+    grid-column: 1 / -1;
+    width: 40px;
+    height: 40px;
+  }
+
+  .stat-card__value {
+    grid-row: 2;
+    grid-column: 1;
+    text-align: left;
+  }
+
+  .stat-card__label {
+    grid-row: 2;
+    grid-column: 2;
+    font-size: 0.8125rem;
+  }
+
+  .stat-card__caption {
+    display: none;
+  }
+}

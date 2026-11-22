@@ -1,34 +1,103 @@
 /* ==========================================================================
-   FocusBoard Layout Styles
-   Desktop (1440px), Tablet (768px), and Mobile (390px) shell geometry.
-   Populated in Phases 3 & 5.
+   FocusBoard Layout Shell
+   Desktop (1440px) primary shell with responsive scaffolding for Tablet/Mobile.
    ========================================================================== */
 
-.phase1-shell {
+.app-shell {
   min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: var(--space-6);
+  display: flex;
+  background-color: var(--color-bg-canvas);
 }
 
-.phase1-card {
-  width: 100%;
-  max-width: 480px;
+.app-shell__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left Sidebar — 244px desktop rail */
+.sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
   background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-6);
-  box-shadow: var(--shadow-card);
+  border-right: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.phase1-card h1 {
-  font-size: var(--text-xl);
-  font-weight: var(--font-bold);
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-2);
+/* Top Navigation Bar — 85px desktop height */
+.topbar {
+  height: var(--topbar-height);
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
 }
 
-.phase1-card p {
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+.topbar__inner {
+  width: 100%;
+  max-width: calc(var(--content-max-width) + 88px);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-11);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+/* Main Dashboard Canvas — 1106px aligned inner column */
+.dashboard-content {
+  width: 100%;
+  max-width: calc(var(--content-max-width) + 88px);
+  margin: 0 auto;
+  padding: 34px var(--space-11) 48px;
+}
+
+.dashboard-hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: 26px;
+}
+
+/* Responsive scaffolding (refined fully in Phase 5) */
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+
+  .topbar__inner {
+    padding: 0 var(--space-6);
+  }
+
+  .dashboard-content {
+    padding: var(--space-7) var(--space-6) var(--space-10);
+  }
+}
+
+@media (max-width: 639px) {
+  .topbar {
+    height: var(--mobile-header-height);
+  }
+
+  .topbar__inner {
+    padding: 0 var(--space-5);
+  }
+
+  .dashboard-content {
+    padding: var(--space-6) var(--space-5) var(--space-10);
+  }
+
+  .dashboard-hero {
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
 }
