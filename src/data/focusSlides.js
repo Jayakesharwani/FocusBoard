@@ -1,10 +1,4 @@
-/**
- * Exact Focus Notes carousel slide definitions matching the three Figma
- * reference frames (Slides 1-3, 1106 x 152).
- *
- * Slide progress percentages (62%, 67%, 100%) are intentional reference
- * visual elements and remain separate from calculated dashboard statistics.
- */
+ 
 export const FOCUS_SLIDES = [
   {
     id: 'slide-1',
