@@ -25,12 +25,12 @@
 }
 
 .sidebar__nav {
-  padding: 20px 18px var(--space-6);
+  padding: 34px 18px var(--space-6);
 }
 
 .sidebar__section-label {
   padding: 0 14px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   font-size: 0.6875rem;
   font-weight: var(--font-semibold);
   letter-spacing: 0.08em;
@@ -41,7 +41,7 @@
 .sidebar__list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
 }
 
 .sidebar__link {
@@ -233,7 +233,7 @@
 }
 
 .dashboard-hero__cta {
-  margin-top: 4px;
+  margin-top: 0;
   flex-shrink: 0;
 }
 
@@ -250,8 +250,8 @@
     var(--color-banner-end) 100%
   );
   box-shadow: var(--shadow-banner);
-  padding: 22px 28px 18px 36px;
-  margin-bottom: 24px;
+  padding: 22px 32px 18px 36px;
+  margin-bottom: 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -344,13 +344,13 @@
 .focus-carousel__visual {
   display: flex;
   align-items: center;
-  gap: 78px;
+  gap: 76px;
   flex-shrink: 0;
 }
 
 .focus-preview {
   position: relative;
-  width: 214px;
+  width: 206px;
   padding: 2px 0;
 }
 
@@ -366,7 +366,7 @@
   position: relative;
   background-color: var(--color-surface);
   border-radius: 16px;
-  padding: 15px 16px 14px;
+  padding: 16px 14px 15px;
   transform: rotate(2.6deg);
   box-shadow: 0 12px 24px rgba(32, 23, 128, 0.18);
   color: var(--color-text-primary);
@@ -375,12 +375,12 @@
 .focus-preview__top {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
 }
 
 .focus-preview__check-badge {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
   border-radius: 8px;
   background-color: var(--color-stat-completed-bg);
   color: var(--color-stat-completed-fg);
@@ -406,12 +406,11 @@
 
 .focus-preview__title {
   margin-top: 2px;
-  font-size: 0.8125rem; /* 13px */
+  font-size: 0.78125rem; /* 12.5px */
   font-weight: var(--font-bold);
+  letter-spacing: -0.015em;
   color: var(--color-text-primary);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   line-height: 1.25;
 }
 
@@ -453,8 +452,8 @@
 }
 
 .focus-carousel__nav-btn {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-pill);
   display: grid;
   place-items: center;
@@ -508,12 +507,12 @@
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 22px 24px;
+  padding: 20px 24px;
   box-shadow: var(--shadow-card);
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   column-gap: 16px;
-  row-gap: 12px;
+  row-gap: 10px;
   align-items: center;
 }
 
