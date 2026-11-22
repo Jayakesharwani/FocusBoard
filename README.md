@@ -34,7 +34,7 @@ FocusBoard is strictly a frontend-only application with no Express server, backe
 ### Installation & Local Development
 
 ```bash
-git clone <YOUR_PUBLIC_GITHUB_REPOSITORY_URL>
+git clone https://github.com/Jayakesharwani/FocusBoard.git
 cd focusboard
 npm install
 npm run dev
@@ -90,8 +90,8 @@ focusboard/
 
 ## Links
 
-- **Live Application:** `<YOUR_HTTPS_DEPLOYMENT_URL>`
-- **GitHub Repository:** `<YOUR_PUBLIC_GITHUB_REPOSITORY_URL>`
+- **Live Application:** https://focusboard-flax.vercel.app/
+- **GitHub Repository:** https://github.com/Jayakesharwani/FocusBoard
 
 ## AI Usage
 
